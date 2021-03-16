@@ -7,7 +7,7 @@ here = abspath(dirname(getsource(lambda: 0)))
 
 setup(
     name="pyticker",
-    version="0.0.1-beta",
+    version="0.1-beta",
     description="Terminal based stocks and portfolio tracks.",
     long_description="Terminal based stocks watchlist and portfolio/position tracker.",
     url="https://github.com/priyanshus/pyticker",

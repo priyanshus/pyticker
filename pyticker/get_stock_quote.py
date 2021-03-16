@@ -9,18 +9,18 @@ def _get_style_for_watchlist(change_price: str):
     return "#d12d0d " if change_price.startswith('-') else "#0dba3a"
 
 
-
 class YahooHttpClient(object):
     def __init__(self):
         self._width = ProjectConstants.WIDTH
         self._yahoo_url = "https://query2.finance.yahoo.com/v7/finance/quote?formatted=true&symbols={}"
 
     def _fetch_stock_quote(self, symbols) -> str:
-        response = requests.get(self._yahoo_url.format(symbols))
-        if response.status_code == 200:
-            return response.text
-
-        print('Something wrong with yahoo finance..')
+        if symbols:
+            response = requests.get(self._yahoo_url.format(symbols))
+            if response.status_code == 200:
+                return response.text
+            else:
+                print('Something wrong with yahoo finance..')
         return None
 
     def get_watchlist_text(self, stock_symbols) -> List[tuple]:
@@ -45,4 +45,3 @@ class YahooHttpClient(object):
         watchlist_style = _get_style_for_watchlist(market_change)
         watchlist_text = symbol + previous_day_close + regular_market_open + day_low + day_high + market_price + market_change + '\n'
         return watchlist_style, watchlist_text
-
