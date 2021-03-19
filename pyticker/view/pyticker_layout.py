@@ -11,30 +11,34 @@ from pyticker.view.watchlist_view import WatchListView
 
 class PyTickerLayout(object):
     def __init__(self):
-        self._watchlist = WatchListView()
-        self._positions = PositionsView()
-        self._bottom = BottomInputInstructionsView()
+        self.__watchlist = WatchListView()
+        self.__positions = PositionsView()
+        self.__bottom = BottomInputInstructionsView()
 
     def _get_main_title_layout(self):
-        return Frame(Window(FormattedTextControl(HTML("<u>Stock Dashboard</u>")), height=1, align=WindowAlign.CENTER),
+        return Frame(Window(FormattedTextControl(HTML("<u>PyTicker</u>")), height=1, align=WindowAlign.CENTER),
                      style=PyTickerStyles.DARK_GREY_BACKGROUND_BLACK_TEXT)
 
-    def _get_titles_layout(self):
+    def _get_columns_layout(self):
         return VSplit(
             [
                 HSplit([
-                    self._watchlist.get_watchlist_title_view(),
-                    self._watchlist.get_watchlist_subtitle_view()
+                    self.__watchlist.get_watchlist_title_view(),
+                    self.__watchlist.get_watchlist_column_view()
                 ]),
-                self._positions.get_positions_title_view()
+                HSplit([
+                    self.__positions.get_positions_title_view(),
+                    self.__positions.get_positions_column_view()
+                ]),
+
             ],
             height=2, padding=1, padding_style="bg:#e5e7e9",
         )
 
     def _get_main_content_layout(self):
         return VSplit([
-            self._watchlist.get_watchlist_stocks_view(),
-            self._positions.get_positions_stocks_view()
+            self.__watchlist.get_watchlist_stocks_view(),
+            self.__positions.get_positions_stocks_view()
         ],
             padding=1,
             padding_char=".",
@@ -43,10 +47,10 @@ class PyTickerLayout(object):
     def get_layout(self) -> Layout:
         root_container = HSplit([
             self._get_main_title_layout(),
-            self._get_titles_layout(),
+            self._get_columns_layout(),
             self._get_main_content_layout(),
             Window(width=2, height=1, char="."),
-            self._bottom.get_input_instructions_view()
+            self.__bottom.get_input_instructions_view()
         ])
         root_container = FloatContainer(
             root_container,
