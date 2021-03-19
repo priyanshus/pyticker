@@ -10,7 +10,7 @@ POSITION_STOCKS_TEXT = FormattedTextControl(style="bold")
 class PositionsView(object):
     def __init__(self):
         self.__width = ProjectConstants.WIDTH
-        self.__positions_title_view_text = f"<u>Positions</u>"
+        self.__positions_title_view_text = '<u>Positions</u>'
         self.__watchlist_subtitle_view_text = f'{"Symbol".ljust(self.__width)}{"Qty".ljust(6)}{"Inv Price".ljust(self.__width)}' \
                                               f'{"Total Inv".ljust(self.__width)}{"Mkt Price".ljust(self.__width)}{"Curr Val".ljust(self.__width)}' \
                                               f'{"Profit/Loss".ljust(self.__width)}'

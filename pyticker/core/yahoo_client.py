@@ -39,6 +39,7 @@ class YahooHttpClient(object):
         if symbols:
             with ThreadPoolExecutor(max_workers=10) as executor:
                 responses = executor.map(self._talk_to_yahoo, symbols)
+                executor.
 
         if responses:
             for response in responses:

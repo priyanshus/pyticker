@@ -10,10 +10,10 @@ WATCHLIST_STOCKS_TEXT = FormattedTextControl(style="bold")
 class WatchListView(object):
     def __init__(self):
         self.__width = ProjectConstants.WIDTH
-        self.__watchlist_title_view_text = f"<u>Watchlist</u>"
+        self.__watchlist_title_view_text = '<u>Watchlist</u>'
         self.__watchlist_subtitle_view_text = f'{"Symbol".ljust(self.__width)}{"Pr Close".ljust(self.__width)}{"Open".ljust(self.__width)}' \
-                                             f'{"D Low".ljust(self.__width)}{"D High".ljust(self.__width)}{"Mkt Price".ljust(self.__width)}' \
-                                             f'{"Change".ljust(self.__width)}'
+                                              f'{"D Low".ljust(self.__width)}{"D High".ljust(self.__width)}{"Mkt Price".ljust(self.__width)}' \
+                                              f'{"Change".ljust(self.__width)}'
 
     def get_watchlist_title_view(self) -> Window:
         return Window(
