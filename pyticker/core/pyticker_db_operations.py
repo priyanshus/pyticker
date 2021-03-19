@@ -80,11 +80,11 @@ class PyTickerDBOperations(object):
                 previous_position = connection.execute('SELECT * FROM positions WHERE symbol = ?',
                                                        (position_details[0],)) \
                     .fetchone()
-                if previous_position and position_details[1] < previous_position[1]:
+                if previous_position and int(position_details[1]) < previous_position[1]:
                     new_quantity = previous_position[1] - int(position_details[1])
                     connection.execute('UPDATE positions SET qty = ? where symbol = ?',
                                        (new_quantity, position_details[0]))
-                elif previous_position and position_details[1] == previous_position[1]:
+                elif previous_position and int(position_details[1]) == previous_position[1]:
                     connection.execute('DELETE FROM positions WHERE symbol=?', (position_details[0],))
                 else:
                     pass

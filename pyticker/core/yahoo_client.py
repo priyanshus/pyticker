@@ -81,8 +81,8 @@ class YahooHttpClient(object):
     def _format_position_text(self, position_in_hand: dict, result: Result) -> tuple:
         buy_price = position_in_hand[result.symbol]['buy_price']
         qty = position_in_hand[result.symbol]['qty']
-        total_investment_int = qty * buy_price
-        current_valuation_int = qty * get_int_value(result.regular_market_price)
+        total_investment_int = round((qty * buy_price), 2)
+        current_valuation_int = round(qty * get_int_value(result.regular_market_price), 2)
         symbol = result.get_symbol().ljust(self.__width)
         market_price = get_str_value(result.regular_market_price).ljust(self.__width)
         total_investment = str(total_investment_int).ljust(self.__width)
