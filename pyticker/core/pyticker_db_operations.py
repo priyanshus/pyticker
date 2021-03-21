@@ -22,7 +22,6 @@ class PyTickerDBOperations(object):
             finally:
                 connection.commit()
 
-
     def add_symbol_in_watchlist(self, symbols):
         with closing(sqlite3.connect(self._db_file_path)) as connection:
             try:
@@ -106,10 +105,3 @@ class PyTickerDBOperations(object):
                 }
 
         return positions
-
-
-if __name__ == '__main__':
-    db = PyTickerDBOperations()
-    db.init_db()
-    print(db.get_stock_symobls_to_fetch_quotes())
-    print(db.get_positions())

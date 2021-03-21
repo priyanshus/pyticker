@@ -51,8 +51,7 @@ class PyTicker(object):
 
 def main():
     pyticker_db_dir = create_pyticker_dir()
-    pyticker_db_file_path = os.path.join(pyticker_db_dir, 'pyticker.db')
-    pyticker_db = PyTickerDBOperations(pyticker_db_file_path)
+    pyticker_db = PyTickerDBOperations()
     pyticker_db.init_db()
     pyticker = PyTicker(pyticker_db)
     pyticker.init_application()
