@@ -9,17 +9,17 @@ def calculate_new_buy_average(prev_qty, prev_buy_price, added_qty, new_buy_price
 
 
 class PyTickerDBOperations(object):
-    def __init__(self):
-        self._pyticker_db_dir = os.path.join(str(Path.home()), '.pyticker')
-        self._db_file_path = os.path.join(self._pyticker_db_dir, 'pyticker.db')
+    def __init__(self, pyticker_db_file_path=os.path.join(os.path.join(str(Path.home()), '.pyticker'), 'pyticker.db')):
+        self._db_file_path = pyticker_db_file_path
 
     def init_db(self):
-        if not os.path.exists(self._pyticker_db_dir):
-            os.mkdir(self._pyticker_db_dir)
-
-            with closing(sqlite3.connect(self._db_file_path)) as connection:
+        with closing(sqlite3.connect(self._db_file_path)) as connection:
+            try:
                 connection.execute('CREATE TABLE watchlist(symbol TEXT PRIMARY KEY)')
                 connection.execute('CREATE TABLE positions(symbol TEXT PRIMARY KEY, qty INTEGER, buy_price INTEGER)')
+            except sqlite3.OperationalError:
+                pass
+            finally:
                 connection.commit()
 
     def add_symbol_in_watchlist(self, symbols):
@@ -105,10 +105,3 @@ class PyTickerDBOperations(object):
                 }
 
         return positions
-
-
-if __name__ == '__main__':
-    db = PyTickerDBOperations()
-    db.init_db()
-    print(db.get_stock_symobls_to_fetch_quotes())
-    print(db.get_positions())

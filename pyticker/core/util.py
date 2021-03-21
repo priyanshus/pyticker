@@ -15,6 +15,10 @@ def every(delay, task):
         time.sleep(delay)
 
 
+def create_pyticker_dir() -> str:
+    pyticker_dir = os.path.join(str(Path.home()), '.pyticker')
 
+    if not os.path.exists(pyticker_dir):
+        os.mkdir(pyticker_dir)
 
-
+    return pyticker_dir

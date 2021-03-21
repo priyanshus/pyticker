@@ -6,13 +6,13 @@ from pyticker.view.pyticker_styles import PyTickerStyles
 
 
 class BottomInputInstructionsView(object):
-    def __init__(self):
+    def __init__(self, pyticker_db: PyTickerDBOperations):
         self.__completer = WordCompleter([
             'add_to_watchlist',
             'remove_from_watchlist',
         'add_new_position',
         'remove_from_position'], ignore_case=True)
-        self.__pyticker_db = PyTickerDBOperations()
+        self.__pyticker_db = pyticker_db
 
     def get_input_instructions_view(self):
         return TextArea(height=1,
