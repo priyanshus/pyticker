@@ -17,11 +17,11 @@ class YahooHttpClient(object):
     :constructor: list_of_watchlist_symbols, list_of_position_symbols
     """
 
-    def __init__(self, watchlist_symbols, position_symbols):
+    def __init__(self, watchlist_symbols, position_symbols, pyticker_db: PyTickerDBOperations):
         self.__width = ProjectConstants.WIDTH
         self.__watchlist_symbols = watchlist_symbols
         self.__position_symbols = position_symbols
-        self.__pyticker_db = PyTickerDBOperations()
+        self.__pyticker_db = pyticker_db
         self.__stock_quotes = list()
         self.__yahoo_url = "https://query2.finance.yahoo.com/v7/finance/quote?formatted=true&symbols={}"
 
@@ -43,7 +43,8 @@ class YahooHttpClient(object):
 
         if responses:
             for response in responses:
-                results.append(YahooQuoteResponse.from_json(response).quote_response.result[0])
+                if not response.__contains__('"result":[]'):
+                    results.append(YahooQuoteResponse.from_json(response).quote_response.result[0])
         return results
 
     def get_stock_quotes(self) -> tuple:

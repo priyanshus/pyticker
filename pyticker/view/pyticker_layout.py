@@ -3,6 +3,7 @@ from prompt_toolkit.layout import HSplit, Window, FormattedTextControl, WindowAl
     CompletionsMenu, Layout
 from prompt_toolkit.widgets import Frame
 
+from pyticker.core.pyticker_db_operations import PyTickerDBOperations
 from pyticker.view.bottom_input_instructions_view import BottomInputInstructionsView
 from pyticker.view.positions_view import PositionsView
 from pyticker.view.pyticker_styles import PyTickerStyles
@@ -10,10 +11,10 @@ from pyticker.view.watchlist_view import WatchListView
 
 
 class PyTickerLayout(object):
-    def __init__(self):
+    def __init__(self, pyticker_db: PyTickerDBOperations):
         self.__watchlist = WatchListView()
         self.__positions = PositionsView()
-        self.__bottom = BottomInputInstructionsView()
+        self.__bottom = BottomInputInstructionsView(pyticker_db)
 
     def _get_main_title_layout(self):
         return Frame(Window(FormattedTextControl(HTML("<u>PyTicker</u>")), height=1, align=WindowAlign.CENTER),
